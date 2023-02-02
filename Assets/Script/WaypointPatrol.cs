@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class WaypointPatrol : MonoBehaviour
 {
@@ -13,11 +16,30 @@ public class WaypointPatrol : MonoBehaviour
     [Header("Animation")]
     private Animator animator;
 
+    [Header("Target")]
+    public GameObject target;
+    public string targetTag = "Player";
+    public NavMeshAgent agentData;
+
+    [Header("Respaw")]
+    public GameObject Monster;
+    public float TempoSpawn;
+    public Transform[] PontosdeSpawn;
+    
+
+    private void Awake()
+    {
+        agentData = GetComponentInParent<NavMeshAgent>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent.SetDestination(waypoints[0].position);
         animator = GetComponent<Animator>();
+        
+        //Spawn
+        InvokeRepeating("Spawn", TempoSpawn, TempoSpawn);
     }
 
     // Update is called once per frame
@@ -28,6 +50,30 @@ public class WaypointPatrol : MonoBehaviour
             currentWaypoint = (currentWaypoint + 1) % waypoints.Length;
             navMeshAgent.SetDestination(waypoints[currentWaypoint].position);
         }
+        //Animation
         animator.SetFloat("Move", navMeshAgent.velocity.magnitude);
+        
+        //Target
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        GameObject target = other.gameObject;
+        string tag = target.tag;
+        if (tag.Equals(targetTag) == false)
+        {
+            return;
+        }
+
+        Vector3 agentPosition = gameObject.transform.position;
+        Vector3 targetPosition = target.transform.position;
+        Vector3 direction = targetPosition - targetPosition - agentPosition;
+    }
+
+    public void Spawnar()
+    {
+        int PontodeSpawnIndex = Random.Range(0, PontosdeSpawn.Length);
+        Instantiate(Monster, PontosdeSpawn[PontodeSpawnIndex].position, PontosdeSpawn[PontodeSpawnIndex].rotation);
+    }
+
 }
