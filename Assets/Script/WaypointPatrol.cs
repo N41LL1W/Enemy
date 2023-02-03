@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 public class WaypointPatrol : MonoBehaviour
 {
@@ -21,12 +20,6 @@ public class WaypointPatrol : MonoBehaviour
     public string targetTag = "Player";
     public NavMeshAgent agentData;
 
-    [Header("Respaw")]
-    public GameObject Monster;
-    public float TempoSpawn;
-    public Transform[] PontosdeSpawn;
-    
-
     private void Awake()
     {
         agentData = GetComponentInParent<NavMeshAgent>();
@@ -37,9 +30,6 @@ public class WaypointPatrol : MonoBehaviour
     {
         navMeshAgent.SetDestination(waypoints[0].position);
         animator = GetComponent<Animator>();
-        
-        //Spawn
-        InvokeRepeating("Spawn", TempoSpawn, TempoSpawn);
     }
 
     // Update is called once per frame
@@ -52,8 +42,6 @@ public class WaypointPatrol : MonoBehaviour
         }
         //Animation
         animator.SetFloat("Move", navMeshAgent.velocity.magnitude);
-        
-        //Target
     }
 
     private void OnTriggerStay(Collider other)
@@ -69,11 +57,4 @@ public class WaypointPatrol : MonoBehaviour
         Vector3 targetPosition = target.transform.position;
         Vector3 direction = targetPosition - targetPosition - agentPosition;
     }
-
-    public void Spawnar()
-    {
-        int PontodeSpawnIndex = Random.Range(0, PontosdeSpawn.Length);
-        Instantiate(Monster, PontosdeSpawn[PontodeSpawnIndex].position, PontosdeSpawn[PontodeSpawnIndex].rotation);
-    }
-
 }
