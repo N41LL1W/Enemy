@@ -34,7 +34,10 @@ public class EnemyIA : MonoBehaviour
     float horizontal;
 
     //seguir
+    [Space(20)]
+    [Header("Seguir")]
     public float maxDist = 8;
+    public float dist;
 
     //rodear
     bool walkRight = false;
@@ -57,6 +60,7 @@ public class EnemyIA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dist = Vector3.Distance(player.position,transform.position);
         switch (myStates)
         {
             case EnemyStates.Parado:
@@ -79,6 +83,7 @@ public class EnemyIA : MonoBehaviour
             lutar();
             break;
         }
+        
 
         AnimUpdate();
         
@@ -173,11 +178,46 @@ public class EnemyIA : MonoBehaviour
 
     }
 
-    void lutar(){
-        float dist = Vector3.Distance(player.position,transform.position);
-        if(dist >= maxDist){
+    void UpdateState()
+    {
+        if (dist <= 3)
+        {
+            Stayluta = true;
+            StayPatrulha = false;
+            StaySeguindo = false;
+        }
+        else if (dist > maxDist)
+        {
+            Stayluta = false;
+            StayPatrulha = true;
+            StaySeguindo = false;
+
+        }
+        else if (dist > 3 && dist < maxDist)
+        {
+            Stayluta = false;
+            StayPatrulha = false;
+            StaySeguindo = true;
+        }
+
+        if (Stayluta)
+        {
+            myStates = EnemyStates.Lutar;
+        }
+        else if (StayPatrulha)
+        {
+            myStates = EnemyStates.Patrulha;
+        }
+        else if (StaySeguindo)
+        {
             myStates = EnemyStates.Seguir;
         }
+    }
+
+    void lutar(){
+        
+        animator.SetTrigger("atk");
+        
     }
 
     void VisionTimer(){
