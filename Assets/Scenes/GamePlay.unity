@@ -2003,7 +2003,9 @@ MonoBehaviour:
   damage: 20
   damageTag: pDanoFisico
   isAtacking: 0
-  dAnims: []
+  dAnims:
+  - d1
+  - d2
 --- !u!1001 &1714173482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3095,6 +3097,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3359494855303907282, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3359494855303907287, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
       propertyPath: m_Controller
       value: 
@@ -3160,12 +3166,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2140835917}
     - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: minDist
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
       propertyPath: pathDad
       value: 
       objectReference: {fileID: 210504400}
     - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
       propertyPath: vtAmount
-      value: 0.1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: anguloVision
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: minDistVision
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: atks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: atks.Array.data[0]
+      value: atks1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220495078812882806, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}
+      propertyPath: atks.Array.data[1]
+      value: atks2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbf904a14232cf04791ac7b9502100d6, type: 3}

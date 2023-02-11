@@ -11,6 +11,9 @@ public class EnemyIA : MonoBehaviour
 
     Animator animator;
     NavMeshAgent agent;
+    public bool Stayluta;
+    public bool StayPatrulha;
+    public bool StaySeguindo;
 
     //alvo
     public Transform player;
@@ -61,6 +64,7 @@ public class EnemyIA : MonoBehaviour
     void Update()
     {
         dist = Vector3.Distance(player.position,transform.position);
+        UpdateState();
         switch (myStates)
         {
             case EnemyStates.Parado:
@@ -92,7 +96,7 @@ public class EnemyIA : MonoBehaviour
     void parado(){
         SetMove(true,false,0,0);
 
-        VisionTimer();
+        //VisionTimer();
     }
 
     void AnimUpdate(){
@@ -113,7 +117,7 @@ public class EnemyIA : MonoBehaviour
             return;
         }
 
-        VisionTimer();
+        //VisionTimer();
 
         if(Ver()){
             return;
@@ -221,29 +225,29 @@ public class EnemyIA : MonoBehaviour
     }
 
     void VisionTimer(){
-        if(Ver()){
-            vTimer += vtAmount;
-            SetMove(true,false,0,0);
-        }
-        else{
-            vTimer -= vtAmount;
-        }
-
-        vTimer = Mathf.Clamp(vTimer,0,1);
-
-        if(vTimer >= 1){
-            myStates = EnemyStates.Seguir;
-        }
-
-        if(vTimer <= 0 && myStates == EnemyStates.Seguir){
-            if(pathDad == null){
-                myStates = EnemyStates.Parado;
-            }
-            else{
-                myStates = EnemyStates.Patrulha;
-            }
-            
-        }
+        // if(Ver()){
+        //     vTimer += vtAmount;
+        //     SetMove(true,false,0,0);
+        // }
+        // else{
+        //     vTimer -= vtAmount;
+        // }
+        //
+        // vTimer = Mathf.Clamp(vTimer,0,1);
+        //
+        // if(vTimer >= 1){
+        //     myStates = EnemyStates.Seguir;
+        // }
+        //
+        // if(vTimer <= 0 && myStates == EnemyStates.Seguir){
+        //     if(pathDad == null){
+        //         myStates = EnemyStates.Parado;
+        //     }
+        //     else{
+        //         myStates = EnemyStates.Patrulha;
+        //     }
+        //     
+        // }
     }
 
     bool Ver(){
