@@ -16,27 +16,27 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch39_1001_Diffuse
-    second: {fileID: 2800000, guid: ef3aaa5de69e58847a7bf6a608374676, type: 3}
+    second: {fileID: 2800000, guid: 95fd8e790f36d1841ac13c280cfb2046, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch39_1001_Glossiness
-    second: {fileID: 2800000, guid: fd4e4f2253212944991b3723aca33834, type: 3}
+    second: {fileID: 2800000, guid: cd488db8a65fa0e4ba1f730aadb118ea, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch39_1001_Normal
-    second: {fileID: 2800000, guid: 028e2e18d72e13b459b0f48a6f647ce2, type: 3}
+    second: {fileID: 2800000, guid: 7decb02980a488946bea3792082dfd47, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch39_1001_Specular
-    second: {fileID: 2800000, guid: c4a76feea0cec4a4fae4d93e8fdfaed0, type: 3}
+    second: {fileID: 2800000, guid: a45bd254c8f075a4cb0af9a84e22fa0d, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 0
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

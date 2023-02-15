@@ -190,21 +190,21 @@ public class MoveController : MonoBehaviour
         }
     }
     
-    /*void Attack()
+    void Attack()
     {
         Ray rayAttack = new Ray(transform.position, transform.forward);
         RaycastHit hitInfo = new RaycastHit();
-        rangeAttack = basicStats.baseRange;
+        rangeAttack = 5f;
         if (Physics.Raycast(rayAttack, out hitInfo, rangeAttack)) ;
         {
-            if (hitInfo.collider.GetComponent<DestructiveBase>() != null)
+            if (hitInfo.collider.GetComponent<Arrow>() != null)
             {
                 if (hitInfo.collider != this.GetComponent<Collider>())
                 {
-                    hitInfo.collider.GetComponent<DestructiveBase>().ApplyDamage(currentAttack);
+                    hitInfo.collider.GetComponent<Arrow>();
                 }
             }
         }
-    }*/
+    }
 
 }

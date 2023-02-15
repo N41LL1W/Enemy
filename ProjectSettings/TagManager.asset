@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - eDanoFisico
-  - pDanoFisico
+  - WayPoints
+  - Dragon
   layers:
   - Default
   - TransparentFX
