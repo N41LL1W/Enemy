@@ -188,7 +188,7 @@ namespace StarterAssets
         public void Shoot()
         {
             GameObject arrow = Instantiate(arrowObject, arrowPoint.position, transform.rotation);
-            arrow.GetComponent<Rigidbody>().AddForce(transform.forward * 25, ForceMode.Impulse);
+            //arrow.GetComponent<Rigidbody>().AddForce(transform.forward * 25, ForceMode.Impulse);
         }
 
         private void LateUpdate()
