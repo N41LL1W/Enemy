@@ -1,47 +1,47 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dragon : MonoBehaviour
+namespace Script.Dragon
 {
-    public int HP = 100;
-    public Slider healthBar;
-    public Animator animator;
-
-    public GameObject fireBall;
-    public Transform fireBallPoint;
-
-    private void Update()
+    public class Dragon : MonoBehaviour
     {
-        healthBar.value = HP;
-    }
+        public int HP = 100;
+        public Slider healthBar;
+        public Animator animator;
 
-    public void Scream()
-    {
-        FindObjectOfType<AudioManager>().Play("DragonScream");
-    }
-    
-    public void Attack()
-    {
-        FindObjectOfType<AudioManager>().Play("DragonAttack");
-    }
+        public GameObject fireBall;
+        public Transform fireBallPoint;
 
-    public void TakeDamage(int damageAmount)
-    {
-        HP += damageAmount;
-        if (HP <= 0)
+        private void Update()
         {
-            FindObjectOfType<AudioManager>().Play("DragonDeath");
-            animator.SetTrigger("die");
-            GetComponent<Collider>().enabled = false;
+            healthBar.value = HP;
         }
 
-        else
+        public void Scream()
         {
-            FindObjectOfType<AudioManager>().Play("DragonDamage");
-            animator.SetTrigger("damage");
+            FindObjectOfType<AudioManager>().Play("DragonScream");
+        }
+    
+        public void Attack()
+        {
+            FindObjectOfType<AudioManager>().Play("DragonAttack");
+        }
+
+        public void TakeDamage(int damageAmount)
+        {
+            HP += damageAmount;
+            if (HP <= 0)
+            {
+                FindObjectOfType<AudioManager>().Play("DragonDeath");
+                animator.SetTrigger("die");
+                GetComponent<Collider>().enabled = false;
+            }
+
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("DragonDamage");
+                animator.SetTrigger("damage");
+            }
         }
     }
 }
