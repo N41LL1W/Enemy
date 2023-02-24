@@ -19,6 +19,7 @@ public class TextCharacterValue : MonoBehaviour
     void Start()
     {
         character.statsContainer.Subscribe(UpdateText, trackValue);
+        UpdateText();
     }
 
     // Update is called once per frame

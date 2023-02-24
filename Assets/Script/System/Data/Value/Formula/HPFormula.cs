@@ -17,4 +17,12 @@ public class HPFormula : FormulaInt
         stats.Get(strength, out str);
         return vit * 6 + str * 2 + 30; //ou você pode armazenar isso em uma variavel.
     }
+
+    public override List<Value> GetReferences()
+    {
+        List<Value> values = new List<Value>();
+        values.Add(vitality);
+        values.Add(strength);
+        return values;
+    }
 }

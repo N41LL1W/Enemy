@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class StatsContainer
@@ -12,23 +13,23 @@ public class StatsContainer
         valueList = new List<ValueReference>();
     }
 
-    internal string GetText(Value trackValue)
+    internal string GetText(Value value)
     {
-        int i = valueList.FindIndex(x => x.valueBase == trackValue);
-        return valueList[i].TEXT;
+        ValueReference valueReference = valueList.Find(x => x.valueBase == value);
+        return valueReference.TEXT;
     }
 
-    public void Sum(Value v, int sum)
+    public void Sum(Value value, int sum)
     {
-        int i = valueList.FindIndex(x => x.valueBase == v);
-        if (i != -1)
+        ValueReference valueReference = valueList.Find(x => x.valueBase == value);
+        if (valueReference != null)
         {
-            ValueIntReference reference = (ValueIntReference)valueList[i];
+            ValueIntReference reference = (ValueIntReference)valueReference;
             reference.Sum(sum);
         }
         else
         {
-            Add(v, sum);
+            Add(value, sum);
         }
     }
 
@@ -59,24 +60,43 @@ public class StatsContainer
             state = valueFloat.value;
         }
     }
-    
-    internal void Subscribe(Action action, Value trackValue)
+
+    public ValueReference GetValueReference(Value value)
     {
-        int i = valueList.FindIndex(x => x.valueBase == trackValue);
-        valueList[i].onChange += action;
+        return valueList.Find(x => x.valueBase == value);
+    }
+    
+    public void Subscribe(Action action, Value trackValue)
+    {
+        ValueReference valueReference = valueList.Find(x => x.valueBase == trackValue);
+        valueReference.onChange += action;
     }
 
-    public void Sum(Value v, float sum)
+    public void Subscribe(Action<Value> action, Value dependency, Value subscribeTo)
     {
-        int i = valueList.FindIndex(x => x.valueBase == v);
-        if (i != -1)
+        ValueReference valueReference = valueList.Find(x => x.valueBase == subscribeTo);
+        if (valueReference.recalculate == null)
         {
-            ValueFloatReference reference = (ValueFloatReference)valueList[i];
+            valueReference.recalculate = action;
+        }
+        if (valueReference.dependent == null)
+        {
+            valueReference.dependent = new List<Value>();
+        }
+        valueReference.dependent.Add(dependency);
+    }
+
+    public void Sum(Value value, float sum)
+    {
+        ValueReference valueReference = valueList.Find(x => x.valueBase == value);
+        if (valueReference != null)
+        {
+            ValueFloatReference reference = (ValueFloatReference)valueReference;
             reference.Sum(sum);
         }
         else
         {
-            Add(v, sum);
+            Add(value, sum);
         }
     }
 
@@ -104,7 +124,7 @@ public class Character : MonoBehaviour
     void Init()
     {
         InitValues();
-        InitFormula();
+        InitFormulas();
     }
 
     private void InitValues()
@@ -124,12 +144,13 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void InitFormula()
+    private void InitFormulas()
     {
         foreach (ValueReference valueReference in statsContainer.valueList)
         {
             if (valueReference.valueBase.formula)
             {
+                valueReference.Null();
                 if (valueReference.valueBase.formula is FormulaInt)
                 {
                     FormulaInt formula = (FormulaInt)valueReference.valueBase.formula;
@@ -140,7 +161,31 @@ public class Character : MonoBehaviour
                     FormulaFloat formula = (FormulaFloat)valueReference.valueBase.formula;
                     statsContainer.Sum(valueReference.valueBase, formula.Calculate(statsContainer));
                 }
+
+                List<Value> references = valueReference.valueBase.formula.GetReferences();
+                for (int i = 0; i < references.Count; i++)
+                {
+                    statsContainer.Subscribe(ValueRecalculate, valueReference.valueBase, references[i]);
+                }
+                //ValueRecalculate();
             }
+        }
+    }
+
+    public void ValueRecalculate(Value value)
+    {
+        ValueReference valueReference = statsContainer.GetValueReference(value);
+        valueReference.Null();
+        //Add up all relevenet sources of stats.
+        if (valueReference.valueBase.formula is FormulaInt)
+        {
+            FormulaInt formula = (FormulaInt)valueReference.valueBase.formula;
+            statsContainer.Sum(valueReference.valueBase, formula.Calculate(statsContainer));
+        }
+        else
+        {
+            FormulaFloat formula = (FormulaFloat)valueReference.valueBase.formula;
+            statsContainer.Sum(valueReference.valueBase, formula.Calculate(statsContainer));
         }
     }
 

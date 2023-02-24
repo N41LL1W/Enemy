@@ -3,20 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ValueReference : ScriptableObject
+public abstract class ValueReference
 {
     public Value valueBase;
 
     public Action onChange;
-    
+    public Action<Value> recalculate;
+
+    public List<Value> dependent;
+
+    internal void RecalculateDependencies()
+    {
+        if (dependent != null)
+        {
+            foreach (Value v in dependent)
+            {
+                recalculate?.Invoke(v);
+            }
+        }
+    }
+
     public virtual string TEXT { get; internal set; }
+
+    public abstract void Null();
 }
 
 public class ValueFloatReference : ValueReference
 {
     public float value;
 
-    public ValueFloatReference(Value _valueBase, float _value = 0f)
+    public ValueFloatReference(Value _valueBase, float _value = 0)
     {
         valueBase = _valueBase;
         value = _value;
@@ -25,7 +41,15 @@ public class ValueFloatReference : ValueReference
     internal void Sum(float sum)
     {
         value += sum;
-        onChange();
+        onChange?.Invoke();
+        base.RecalculateDependencies();
+    }
+    
+    public override void Null()
+    {
+        value = 0;
+        onChange?.Invoke();
+        base.RecalculateDependencies();
     }
     public override string TEXT
     {
@@ -49,8 +73,17 @@ public class ValueIntReference : ValueReference
     internal void Sum(int sum)
     {
         value += sum;
-        onChange();
+        onChange?.Invoke();
+        base.RecalculateDependencies();
     }
+
+    public override void Null()
+    {
+        value = 0;
+        onChange?.Invoke();
+        base.RecalculateDependencies();
+    }
+
     public override string TEXT
     {
         get

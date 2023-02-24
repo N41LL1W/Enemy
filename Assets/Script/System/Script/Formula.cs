@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Formula : ScriptableObject
+public abstract class Formula : ScriptableObject
 {
-    
+    public abstract List<Value> GetReferences();
 }
 
 public abstract class FormulaInt : Formula
