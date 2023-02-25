@@ -5,21 +5,27 @@ using UnityEngine.UI;
 
 public class TextCharacterValue : MonoBehaviour
 {
-    public Value trackValue;
+    public List<Value> trackValue;
     public Character character;
 
     // ReSharper disable Unity.PerformanceAnalysis
     void UpdateText()
     {
-        string str = character.statsContainer.GetText(trackValue);
-        GetComponent<Text>().text = str;
+        foreach (Value i in trackValue)
+        {
+            string str = character.statsContainer.GetText(i);
+            GetComponent<Text>().text = str;
+        }
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        character.statsContainer.Subscribe(UpdateText, trackValue);
-        UpdateText();
+        foreach (Value i in trackValue)
+        {
+            character.statsContainer.Subscribe(UpdateText, i);
+            UpdateText();
+        }
     }
 
     // Update is called once per frame

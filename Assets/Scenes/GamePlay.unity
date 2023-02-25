@@ -2490,7 +2490,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fa1c3f2428799488ad1988f5a971e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackValue: {fileID: 11400000, guid: c85d3226be2ec9e4980ba4e17203762e, type: 2}
+  trackValue:
+  - {fileID: 11400000, guid: 561abcac4aeb3e84faffa7fe07ee6dea, type: 2}
+  - {fileID: 11400000, guid: c85d3226be2ec9e4980ba4e17203762e, type: 2}
   character: {fileID: 7090610391414708053}
 --- !u!114 &2105843563
 MonoBehaviour:
@@ -2732,11 +2734,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2935378487996414920, guid: f6ecf83755789474284be22bb194757d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.096
+      value: -10.032
       objectReference: {fileID: 0}
     - target: {fileID: 2935378487996414920, guid: f6ecf83755789474284be22bb194757d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6470001
+      value: 1.7370002
       objectReference: {fileID: 0}
     - target: {fileID: 2935378487996414920, guid: f6ecf83755789474284be22bb194757d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2776,7 +2778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2935378487996414927, guid: f6ecf83755789474284be22bb194757d, type: 3}
       propertyPath: field of view
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6ecf83755789474284be22bb194757d, type: 3}
