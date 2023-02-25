@@ -1587,6 +1587,7 @@ GameObject:
   - component: {fileID: 2461622566620893646}
   - component: {fileID: 8243628951720372034}
   - component: {fileID: 5677103947056020274}
+  - component: {fileID: 6234835201064396598}
   m_Layer: 8
   m_Name: PlayerWarrior
   m_TagString: Player
@@ -1834,6 +1835,20 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6234835201064396598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5677103947056020286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636663737d457c4f904de246e4cadd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsStruture: {fileID: 11400000, guid: a71e2406fd9f69744ba0a2dcb0dea26a, type: 2}
+  testReferenceValue: {fileID: 11400000, guid: c85d3226be2ec9e4980ba4e17203762e, type: 2}
 --- !u!1 &5748052772315521517
 GameObject:
   m_ObjectHideFlags: 0
